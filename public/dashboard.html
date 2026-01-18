@@ -1,17 +1,15 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nutritionist Dashboard</title>
+  <title>Dashboard - Nutritionist</title>
   <link rel="stylesheet" href="dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.90.1/dist/supabase.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Nutritionist Dashboard</h1>
-    <p class="subtitle">View new appointments submitted by clients</p>
-
+    <h1>Appointments</h1>
     <table id="appointmentsTable">
       <thead>
         <tr>
@@ -20,12 +18,12 @@
           <th>Age</th>
           <th>Occupation</th>
           <th>Location</th>
-          <th>Problem Description</th>
+          <th>Problem</th>
           <th>Appointment Date</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Appointments will be populated here -->
+        <!-- Appointments populate here dynamically -->
       </tbody>
     </table>
   </div>

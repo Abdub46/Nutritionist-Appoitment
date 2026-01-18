@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutritionist Dashboard Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.90.1/dist/supabase.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Nutritionist Login</h1>
+    <p class="subtitle">Enter your credentials to access the dashboard</p>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <p id="loginMessage"></p>
+    </form>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
+
+

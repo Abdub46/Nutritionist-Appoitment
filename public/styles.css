@@ -1,20 +1,11 @@
-/* styles.css */
-/* Clean, modern, medical-style UI */
-
 :root {
   --primary: #0f766e;
-  --primary-dark: #115e59;
   --bg: #f8fafc;
   --card: #ffffff;
   --text: #0f172a;
   --muted: #64748b;
-  --success: #16a34a;
-  --error: #dc2626;
   --border: #e5e7eb;
-}
-
-* {
-  box-sizing: border-box;
+  --hover: #f1f5f9;
 }
 
 body {
@@ -25,7 +16,7 @@ body {
 }
 
 .container {
-  max-width: 720px;
+  max-width: 600px;
   margin: 3rem auto;
   padding: 2rem;
   background: var(--card);
@@ -35,7 +26,8 @@ body {
 
 h1 {
   margin-bottom: 0.25rem;
-  color: var(--primary-dark);
+  color: var(--primary);
+  font-size: 2rem;
 }
 
 .subtitle {
@@ -43,90 +35,37 @@ h1 {
   color: var(--muted);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 0.9rem;
-  margin-bottom: 0.35rem;
-  color: var(--muted);
-}
-
-input,
-select,
-textarea {
-  padding: 0.65rem 0.75rem;
-  font-size: 1rem;
+input, select, textarea, button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
   border-radius: 8px;
   border: 1px solid var(--border);
-  outline: none;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--primary);
-}
-
-textarea {
-  resize: vertical;
+  font-size: 1rem;
 }
 
 button {
-  margin-top: 0.5rem;
-  padding: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
   background: var(--primary);
   color: white;
+  font-weight: 600;
   cursor: pointer;
 }
 
 button:hover {
-  background: var(--primary-dark);
+  background: #115e59;
 }
 
-#message {
-  margin-top: 0.75rem;
-  font-size: 0.95rem;
-}
-
-#message.success {
-  color: var(--success);
-}
-
-#message.error {
-  color: var(--error);
-}
-
-#message.info {
-  color: var(--muted);
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .container {
     margin: 1.5rem;
     padding: 1.5rem;
   }
-
-  .form-row {
-    grid-template-columns: 1fr;
+  h1 {
+    font-size: 1.5rem;
+  }
+  input, select, textarea, button {
+    padding: 0.65rem;
+    font-size: 0.95rem;
   }
 }
+
