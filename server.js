@@ -5,6 +5,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path"; // Required for __dirname
+import { fileURLToPath } from "url";
 import { createClient } from "@supabase/supabase-js";
 
 // Load environment variables
@@ -13,9 +15,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// **Serve frontend (static files in public folder)**
+app.use(express.static(path.join(__dirname, "public")));
 
 // Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
