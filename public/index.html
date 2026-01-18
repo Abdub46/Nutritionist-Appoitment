@@ -3,32 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nutrition Appointment</title>
+  <title>Nutritionist Appointment</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Book an Appointment</h1>
-    <p class="subtitle">Fill in your details to see the nutritionist</p>
-    <form id="appointmentForm">
-      <input type="text" id="name" placeholder="Full Name" required />
-      <select id="gender">
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-      <input type="number" id="age" placeholder="Age" required />
-      <input type="text" id="occupation" placeholder="Occupation" />
-      <input type="text" id="location" placeholder="Location" />
-      <textarea id="problem_description" placeholder="Describe your problem" required></textarea>
-      <input type="date" id="appointment_date" required />
-      <button type="submit">Book Appointment</button>
-      <p id="message"></p>
+  <main class="container">
+    <h1 class="title">Book a Nutritionist Appointment</h1>
+    <p class="subtitle">Fill in your details to schedule a session</p>
+
+    <form id="appointmentForm" class="appointment-form">
+      <div class="form-group">
+        <label for="name">Full Name <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="Enter your full name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age <span class="required">*</span></label>
+        <input type="number" id="age" placeholder="Enter your age" required />
+      </div>
+
+      <div class="form-group">
+        <label for="occupation">Occupation</label>
+        <input type="text" id="occupation" placeholder="Your occupation" />
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="City or region" />
+      </div>
+
+      <div class="form-group">
+        <label for="problem_description">Describe Your Problem <span class="required">*</span></label>
+        <textarea id="problem_description" placeholder="Briefly describe your nutritional concern" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="appointment_date">Appointment Date <span class="required">*</span></label>
+        <input type="date" id="appointment_date" required />
+      </div>
+
+      <button type="submit" class="btn-submit">Book Appointment</button>
+
+      <p id="message" class="form-message"></p>
     </form>
-  </div>
+  </main>
 
   <script src="appointment.js"></script>
 </body>
 </html>
+
 

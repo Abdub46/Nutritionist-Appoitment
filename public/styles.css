@@ -1,71 +1,192 @@
-:root {
-  --primary: #0f766e;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --border: #e5e7eb;
-  --hover: #f1f5f9;
+/* =========================
+   Global Styles
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
 }
 
 .container {
   max-width: 600px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: var(--card);
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  margin-bottom: 0.25rem;
-  color: var(--primary);
+h1.title {
+  text-align: center;
+  margin-bottom: 8px;
   font-size: 2rem;
+  color: #1a73e8;
 }
 
 .subtitle {
-  margin-bottom: 2rem;
-  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555;
 }
 
-input, select, textarea, button {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+/* =========================
+   Form Styles
+========================= */
+.appointment-form .form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.appointment-form label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.required {
+  color: #e53935;
+}
+
+.appointment-form input,
+.appointment-form select,
+.appointment-form textarea {
+  padding: 10px;
   font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
 }
 
-button {
-  background: var(--primary);
-  color: white;
+.appointment-form input:focus,
+.appointment-form select:focus,
+.appointment-form textarea:focus {
+  border-color: #1a73e8;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #1a73e8;
+  color: #fff;
+  font-size: 1rem;
   font-weight: 600;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-button:hover {
-  background: #115e59;
+.btn-submit:hover {
+  background-color: #155ab6;
 }
 
-@media (max-width: 480px) {
-  .container {
-    margin: 1.5rem;
-    padding: 1.5rem;
+.form-message {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* =========================
+   Dashboard Table Styles
+========================= */
+.dashboard-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a73e8;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #1a73e8;
+  color: #fff;
+}
+
+th, td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+/* =========================
+   Responsive Styles
+========================= */
+@media (max-width: 768px) {
+  .container, .dashboard-container {
+    margin: 20px;
+    padding: 15px;
   }
-  h1 {
-    font-size: 1.5rem;
+
+  h1.title {
+    font-size: 1.6rem;
   }
-  input, select, textarea, button {
-    padding: 0.65rem;
-    font-size: 0.95rem;
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  tbody td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: calc(50% - 30px);
+    text-align: left;
+    font-weight: 600;
+    color: #555;
   }
 }
+
 

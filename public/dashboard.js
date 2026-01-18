@@ -1,91 +1,47 @@
-// dashboard.js
-// Fetch and display appointments with Supabase authentication, real-time updates, and new appointment notifications
+// public/dashboard.js
 
-const SUPABASE_URL = "https://ogvazabdnrygvftkumjd.supabase.co"; // replace with your Supabase URL
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ndmF6YWJkbnJ5Z3ZmdGt1bWpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3NTMyMjksImV4cCI6MjA4NDMyOTIyOX0.YYqyGwcPXryInEwVFH80nSRjI6DBZ0RuO3UMNZD7Uik"; // replace with your Supabase anon key
-
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const tableBody = document.querySelector('#appointmentsTable tbody');
-
-// Notification badge element
-const notificationBadge = document.createElement('div');
-notificationBadge.style.background = 'red';
-notificationBadge.style.color = 'white';
-notificationBadge.style.padding = '2px 6px';
-notificationBadge.style.borderRadius = '12px';
-notificationBadge.style.fontSize = '0.8rem';
-notificationBadge.style.marginLeft = '10px';
-notificationBadge.textContent = '0';
-document.querySelector('h1').appendChild(notificationBadge);
-
-let unseenCount = 0;
-
-async function checkSession() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
-    window.location.href = 'login.html';
-  }
-}
-
-async function renderAppointments(appointments) {
-  tableBody.innerHTML = '';
-  appointments.forEach(app => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${app.name}</td>
-      <td>${app.gender || '-'}</td>
-      <td>${app.age}</td>
-      <td>${app.occupation || '-'}</td>
-      <td>${app.location || '-'}</td>
-      <td>${app.problem_description}</td>
-      <td>${app.appointment_date}</td>
-    `;
-    tableBody.appendChild(tr);
-  });
-}
+const tableBody = document.querySelector("#appointmentsTable tbody");
+const API_URL = "/api/appointments";
 
 async function fetchAppointments() {
   try {
-    await checkSession();
-    const { data, error } = await supabase
-      .from('appointments')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if(error) throw error;
-    renderAppointments(data);
-  } catch(err) {
-    console.error('Failed to fetch appointments:', err);
-    tableBody.innerHTML = '<tr><td colspan="7">Failed to load appointments</td></tr>';
+    const res = await fetch(API_URL);
+    const data = await res.json();
+
+    if (!res.ok) {
+      tableBody.innerHTML = `<tr><td colspan="7">Failed to load appointments</td></tr>`;
+      console.error("Error fetching appointments:", data);
+      return;
+    }
+
+    tableBody.innerHTML = "";
+
+    if (!data.appointments || data.appointments.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="7">No appointments yet</td></tr>`;
+      return;
+    }
+
+    data.appointments.forEach((appt) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${appt.name}</td>
+        <td>${appt.gender || "-"}</td>
+        <td>${appt.age}</td>
+        <td>${appt.occupation || "-"}</td>
+        <td>${appt.location || "-"}</td>
+        <td>${appt.problem_description}</td>
+        <td>${appt.appointment_date}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Network error:", err);
+    tableBody.innerHTML = `<tr><td colspan="7">Network error</td></tr>`;
   }
 }
-
-// Real-time subscription with notifications
-supabase
-  .channel('appointments-channel')
-  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'appointments' }, payload => {
-    console.log('New appointment received:', payload);
-    fetchAppointments();
-    unseenCount += 1;
-    notificationBadge.textContent = unseenCount;
-  })
-  .subscribe();
-
-// Reset notification count when dashboard is clicked/focused
-window.addEventListener('focus', () => {
-  unseenCount = 0;
-  notificationBadge.textContent = unseenCount;
-});
-
-// Logout button
-const logoutBtn = document.createElement('button');
-logoutBtn.textContent = 'Logout';
-logoutBtn.style.marginBottom = '1rem';
-logoutBtn.addEventListener('click', async () => {
-  await supabase.auth.signOut();
-  window.location.href = 'login.html';
-});
-document.querySelector('.container').prepend(logoutBtn);
 
 // Initial fetch
 fetchAppointments();
 
+// Optional: refresh every 30 seconds
+setInterval(fetchAppointments, 30000);

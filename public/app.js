@@ -1,41 +1,43 @@
-// app.js
-// Frontend logic for booking nutritionist appointments
-
-// 🔗 CHANGE THIS to your Render backend URL when deployed
-const API_URL = "http://localhost:3000/api/appointments";
+// public/appointment.js
 
 const form = document.getElementById("appointmentForm");
 const messageEl = document.getElementById("message");
 
+// Use relative URL since frontend is served from same backend
+const API_URL = "/api/appointments";
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(form);
-  const payload = Object.fromEntries(formData.entries());
-
-  messageEl.textContent = "Submitting appointment...";
-  messageEl.className = "info";
+  const payload = {
+    name: document.getElementById("name").value.trim(),
+    gender: document.getElementById("gender").value,
+    age: parseInt(document.getElementById("age").value),
+    occupation: document.getElementById("occupation").value.trim(),
+    location: document.getElementById("location").value.trim(),
+    problem_description: document.getElementById("problem_description").value.trim(),
+    appointment_date: document.getElementById("appointment_date").value,
+  };
 
   try {
-    const response = await fetch(API_URL, {
+    const res = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    const result = await response.json();
+    const data = await res.json();
 
-    if (!response.ok) {
-      throw new Error(result.error || "Submission failed");
+    if (res.ok) {
+      messageEl.textContent = "✅ Appointment booked successfully!";
+      form.reset();
+    } else {
+      messageEl.textContent = "❌ " + (data.error || "Failed to book appointment");
     }
-
-    messageEl.textContent = "✅ Appointment booked successfully. We will contact you soon.";
-    messageEl.className = "success";
-    form.reset();
-  } catch (error) {
-    messageEl.textContent = `❌ ${error.message}`;
-    messageEl.className = "error";
+  } catch (err) {
+    console.error("Network error:", err);
+    messageEl.textContent = "❌ Network error. Try again.";
   }
 });
+
+
