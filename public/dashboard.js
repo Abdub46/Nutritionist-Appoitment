@@ -1,8 +1,8 @@
 // dashboard.js
 // Fetch and display appointments with Supabase authentication, real-time updates, and new appointment notifications
 
-const SUPABASE_URL = "https://abcd1234xyz.supabase.co"; // replace with your Supabase URL
-const SUPABASE_ANON_KEY = "your_anon_key"; // replace with your Supabase anon key
+const SUPABASE_URL = "https://ogvazabdnrygvftkumjd.supabase.co"; // replace with your Supabase URL
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ndmF6YWJkbnJ5Z3ZmdGt1bWpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3NTMyMjksImV4cCI6MjA4NDMyOTIyOX0.YYqyGwcPXryInEwVFH80nSRjI6DBZ0RuO3UMNZD7Uik"; // replace with your Supabase anon key
 
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const tableBody = document.querySelector('#appointmentsTable tbody');
